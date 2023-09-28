@@ -26,7 +26,7 @@
                         $original_date = $movieItem->release_date;
                         $timestamp = strtotime($original_date);
                         $movieYear = date('Y', $timestamp);
-
+                        
                         $movieID = $movieItem->id;
                         $movieTitle = $movieItem->title;
                         $movieRating = $movieItem->vote_average * 10;
@@ -78,8 +78,8 @@
                     @php
                         $original_date = $tvShowsItem->first_air_date;
                         $timestamp = strtotime($original_date);
-                        $tvShowsYear = date("Y", $timestamp);
-
+                        $tvShowsYear = date('Y', $timestamp);
+                        
                         $tvShowsID = $tvShowsItem->id;
                         $tvShowsTitle = $tvShowsItem->name;
                         $tvShowsRating = $tvShowsItem->vote_average * 10;
@@ -121,6 +121,9 @@
             </div>
         </div>
         <!-- End Top 10 TV Shows Section -->
+        <!-- Footer Section -->
+        @include('footer')
+        <!-- End Footer Section -->
     </div>
 
     <script>
