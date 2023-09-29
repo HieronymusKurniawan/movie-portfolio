@@ -93,15 +93,16 @@ class MovieController extends Controller
         ]);
     }
 
-    public function movies(){
+    public function movies()
+    {
         $baseURL = env('MOVIE_DB_BASE_URL');
         $imageBaseURL = env('MOVIE_DB_IMAGE_BASE_URL');
         $apiKey = env('MOVIE_DB_API_KEY');
         $sortBy = "popularity.desc";
         $page = 1;
-        $minimalVoter=100;
+        $minimalVoter = 100;
 
-        $moviesResponse = Http::get("{$baseURL}/discover/movie",[
+        $moviesResponse = Http::get("{$baseURL}/discover/movie", [
             'api_key' => $apiKey,
             'sort_by' => $sortBy,
             'page' => $page,
@@ -124,18 +125,19 @@ class MovieController extends Controller
             }
         }
 
-        return view('movies', ['baseURL' => $baseURL, 'imageBaseURL' => $imageBaseURL, 'apiKey' => $apiKey, 'movies' => $moviesArray,'sortBy' => $sortBy, 'page' => $page, 'minimalVoter' => $minimalVoter]);
+        return view('movies', ['baseURL' => $baseURL, 'imageBaseURL' => $imageBaseURL, 'apiKey' => $apiKey, 'movies' => $moviesArray, 'sortBy' => $sortBy, 'page' => $page, 'minimalVoter' => $minimalVoter]);
     }
 
-    public function tvShows(){
+    public function tvShows()
+    {
         $baseURL = env('MOVIE_DB_BASE_URL');
         $imageBaseURL = env('MOVIE_DB_IMAGE_BASE_URL');
         $apiKey = env('MOVIE_DB_API_KEY');
         $sortBy = "popularity.desc";
         $page = 1;
-        $minimalVoter=100;
+        $minimalVoter = 100;
 
-        $tvShowsResponse = Http::get("{$baseURL}/discover/tv",[
+        $tvShowsResponse = Http::get("{$baseURL}/discover/tv", [
             'api_key' => $apiKey,
             'sort_by' => $sortBy,
             'page' => $page,
@@ -158,6 +160,15 @@ class MovieController extends Controller
             }
         }
 
-        return view('tv', ['baseURL' => $baseURL, 'imageBaseURL' => $imageBaseURL, 'apiKey' => $apiKey, 'tvShows' => $tvShowsArray,'sortBy' => $sortBy, 'page' => $page, 'minimalVoter' => $minimalVoter]);
+        return view('tv', ['baseURL' => $baseURL, 'imageBaseURL' => $imageBaseURL, 'apiKey' => $apiKey, 'tvShows' => $tvShowsArray, 'sortBy' => $sortBy, 'page' => $page, 'minimalVoter' => $minimalVoter]);
+    }
+
+    public function search()
+    {
+        $baseURL = env('MOVIE_DB_BASE_URL');
+        $imageBaseURL = env('MOVIE_DB_IMAGE_BASE_URL');
+        $apiKey = env('MOVIE_DB_API_KEY');
+
+        return view('search', ['baseURL' => $baseURL, 'imageBaseURL' => $imageBaseURL, 'apiKey' => $apiKey]);
     }
 }

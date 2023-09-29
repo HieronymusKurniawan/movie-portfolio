@@ -208,8 +208,8 @@
 
         }
 
-        function changeSort(component){
-            if(component.value){
+        function changeSort(component) {
+            if (component.value) {
                 // Set new value
                 sortBy = component.value;
                 // Clear data
