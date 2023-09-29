@@ -126,4 +126,38 @@ class MovieController extends Controller
 
         return view('movies', ['baseURL' => $baseURL, 'imageBaseURL' => $imageBaseURL, 'apiKey' => $apiKey, 'movies' => $moviesArray,'sortBy' => $sortBy, 'page' => $page, 'minimalVoter' => $minimalVoter]);
     }
+
+    public function tvShows(){
+        $baseURL = env('MOVIE_DB_BASE_URL');
+        $imageBaseURL = env('MOVIE_DB_IMAGE_BASE_URL');
+        $apiKey = env('MOVIE_DB_API_KEY');
+        $sortBy = "popularity.desc";
+        $page = 1;
+        $minimalVoter=100;
+
+        $tvShowsResponse = Http::get("{$baseURL}/discover/tv",[
+            'api_key' => $apiKey,
+            'sort_by' => $sortBy,
+            'page' => $page,
+            'vote_count.gte' => $minimalVoter
+        ]);
+
+        $tvShowsArray = [];
+
+        // Check API response
+        if ($tvShowsResponse->successful()) {
+            // Check data is null or not
+            $resultArray = $tvShowsResponse->object()->results;
+
+            if (isset($resultArray)) {
+                // Looping response data
+                foreach ($resultArray as $item) {
+                    // Save response data to new variable
+                    array_push($tvShowsArray, $item);
+                }
+            }
+        }
+
+        return view('tv', ['baseURL' => $baseURL, 'imageBaseURL' => $imageBaseURL, 'apiKey' => $apiKey, 'tvShows' => $tvShowsArray,'sortBy' => $sortBy, 'page' => $page, 'minimalVoter' => $minimalVoter]);
+    }
 }
