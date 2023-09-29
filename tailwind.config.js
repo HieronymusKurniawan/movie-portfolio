@@ -165,7 +165,7 @@ export default {
             rose: colors.rose,
             movie: {
                 500: "#38B6FF",
-                900: "004166",
+                900: "#004166",
             },
         }),
         columns: {

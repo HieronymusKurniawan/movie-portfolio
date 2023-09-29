@@ -92,4 +92,38 @@ class MovieController extends Controller
             'baseURL' => $baseURL, 'imageBaseURL' => $imageBaseURL, 'apiKey' => $apiKey, 'banner' => $bannerArray, 'topMovies' => $topMoviesArray, 'topTVShows' => $topTVShowsArray
         ]);
     }
+
+    public function movies(){
+        $baseURL = env('MOVIE_DB_BASE_URL');
+        $imageBaseURL = env('MOVIE_DB_IMAGE_BASE_URL');
+        $apiKey = env('MOVIE_DB_API_KEY');
+        $sortBy = "popularity.desc";
+        $page = 1;
+        $minimalVoter=100;
+
+        $moviesResponse = Http::get("{$baseURL}/discover/movie",[
+            'api_key' => $apiKey,
+            'sort_by' => $sortBy,
+            'page' => $page,
+            'vote_count.gte' => $minimalVoter
+        ]);
+
+        $moviesArray = [];
+
+        // Check API response
+        if ($moviesResponse->successful()) {
+            // Check data is null or not
+            $resultArray = $moviesResponse->object()->results;
+
+            if (isset($resultArray)) {
+                // Looping response data
+                foreach ($resultArray as $item) {
+                    // Save response data to new variable
+                    array_push($moviesArray, $item);
+                }
+            }
+        }
+
+        return view('movies', ['baseURL' => $baseURL, 'imageBaseURL' => $imageBaseURL, 'apiKey' => $apiKey, 'movies' => $moviesArray,'sortBy' => $sortBy, 'page' => $page, 'minimalVoter' => $minimalVoter]);
+    }
 }
