@@ -133,7 +133,7 @@
                                 let searchImage = element.poster_path ?
                                     `${imageBaseURL}/w500${element.poster_path}` :
                                     `https://via.placeholder.com/300x400`;
-                                let searchRating = element.vote_average * 10;
+                                let searchRating = Math.floor(element.vote_average * 10);
 
                                 htmlData.push(`<a href="${detailsURL}" class="group">
                 <div
